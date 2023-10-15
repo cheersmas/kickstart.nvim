@@ -412,7 +412,7 @@ require('nvim-treesitter.configs').setup {
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>ee', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- [[ Configure LSP ]]
@@ -458,10 +458,12 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
+
   -- Create a map for formatting
-  nmap('<leader>fm', function()
-    vim.lsp.buf.format()
-  end, '[F]or[M]at Buffer')
+  nmap('<leader>fm', function() vim.lsp.buf.format() end, '[F]or[M]at Buffer')
+
+  -- Create a map for netrw
+  nmap('<leader>e', ":Explore<CR>", "[N]etRW")
 end
 
 -- document existing key chains
