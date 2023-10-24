@@ -231,7 +231,8 @@ require('lazy').setup({
     -- "tpope/vim-surround",
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
-  }
+  },
+  { "vrischmann/tree-sitter-templ"}
 }, {})
 
 -- [[ Setting options ]]
@@ -352,7 +353,7 @@ require('nvim-treesitter.configs').setup {
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
 
-  highlight = { enable = true },
+  highlight = { enable = true, additional_vim_regex_highlighting = false },
   indent = { enable = true },
   incremental_selection = {
     enable = true,
@@ -408,6 +409,17 @@ require('nvim-treesitter.configs').setup {
     },
   },
 }
+
+local treesitter_parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+treesitter_parser_config.templ = {
+  install_info = {
+    url = "https://github.com/vrischmann/tree-sitter-templ.git",
+    files = {"src/parser.c", "src/scanner.c"},
+    branch = "master",
+  },
+}
+
+vim.treesitter.language.register('templ', 'templ')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
