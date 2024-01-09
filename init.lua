@@ -144,14 +144,14 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    "folke/tokyonight.nvim",
+    lazy = false,
     priority = 1000,
-    -- load only in nvim not in vscode
+    opts = {},
     cond = not vim.g.vscode,
     config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
+      vim.cmd.colorscheme 'tokyonight-night'
+    end
   },
 
   {
@@ -232,7 +232,7 @@ require('lazy').setup({
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
   },
-  { "vrischmann/tree-sitter-templ"}
+  { "vrischmann/tree-sitter-templ" }
 }, {})
 
 -- [[ Setting options ]]
@@ -286,6 +286,9 @@ vim.o.number = true
 -- Scroll off
 vim.o.scrolloff = 8
 
+-- shifwidth and tabstop
+vim.o.shiftwidth = 2
+vim.o.tabstop = 2
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -348,7 +351,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
-    'vue' },
+    'vue', 'svelte' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -414,7 +417,7 @@ local treesitter_parser_config = require "nvim-treesitter.parsers".get_parser_co
 treesitter_parser_config.templ = {
   install_info = {
     url = "https://github.com/vrischmann/tree-sitter-templ.git",
-    files = {"src/parser.c", "src/scanner.c"},
+    files = { "src/parser.c", "src/scanner.c" },
     branch = "master",
   },
 }
