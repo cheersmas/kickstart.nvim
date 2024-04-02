@@ -232,7 +232,8 @@ require('lazy').setup({
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
   },
-  { "vrischmann/tree-sitter-templ" }
+  { "vrischmann/tree-sitter-templ" },
+  { "github/copilot.vim" }
 }, {})
 
 -- [[ Setting options ]]
@@ -309,6 +310,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
   group = highlight_group,
   pattern = '*',
+})
+
+vim.api.nvim_create_autocmd('BufWritePost', {
+  -- eslint formatting for ts files and vue files
+  command = 'EslintFixAll',
+  pattern = '*.ts,*.tsx,*.vue,*.js,*.jsx',
 })
 
 -- [[ Configure Telescope ]]
